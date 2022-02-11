@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/vote.css">
+    <script src="https://kit.fontawesome.com/cd9622016f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <div class="container">
+      <!--   <div class="iframe">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/UrVvkjkEoK0?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div> -->
+
+
+        <div class="mydivs">
+            <div>
+                <h1 class="divTitle">20대 대선투표를 참여하시겠습니까?</h1>
+                <p class="divSub">당신의 한표가 대한민국을 바꿀수 있습니다.</p>
+                <div class="ageWarp">
+                    <h2 class="ageSub">당신의 연령대를 선택해주세요.</h2>
+                <div class="ageBox">
+                    <div>
+                        <input type="checkbox" name="age" id="age10" value="10" onclick="clickAge(this)">
+                        <label for="age10"><em></em>10대</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="age" id="age20" value="10" onclick="clickAge(this)">
+                        <label for="age20"><em></em>20대</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="age" id="age30" value="10" onclick="clickAge(this)">
+                        <label for="age30"><em></em>30대</label>
+                    </div>
+                </div>  
+                <div class="ageBox">
+                    <div>
+                        <input type="checkbox" name="age" id="age40" value="10" onclick="clickAge(this)">
+                        <label for="age40"><em></em>40대</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="age" id="age50" value="10" onclick="clickAge(this)">
+                        <label for="age50"><em></em>50대</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="age" id="age60" value="10" onclick="clickAge(this)">
+                        <label for="age60"><em></em>60대</label>
+                    </div>
+                </div> 
+                </div>
+            </div>
+            <div>2</div>
+        </div>
+
+        <div class="arrow-right">
+            <button name="next" class="next"><i class="fas fa-angle-double-right"></i></button>
+        </div>
+
+        <div class="arrow-left">
+            <button name="prev" class="prev"><i class="fas fa-angle-double-left"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function clickAge(value){
+            document.querySelectorAll(`input[type=checkbox]`)
+            .forEach(el => el.checked = false);
+
+            value.checked = true
+        }
+
+        $(document).ready(function(){
+            $('.prev').addClass('active')
+
+            setTimeout(function(){
+                $('.mydivs').addClass('active')
+                $('.arrow-right').addClass('active')
+                $('.arrow-left').addClass('active')
+            }, 4000)
+            
+            var divs = $('.mydivs > div')
+            var now = 0
+            divs.hide().first().show();
+            $("button[name=next]").click(function(){
+                var age = $('input[name="age"]:checked').val()
+
+                if(!age){
+                    alert("연령대를 선택해주세요.")
+                    $('input[name="age"]').focus();
+                    return false
+                }
+
+                divs.eq(now).hide()
+                now = (now + 1 < divs.length) ? now + 1 : 0;
+
+                if(now === 1) $('.next').addClass('active')
+                if(now === 1) $('.prev').removeClass('active')
+                divs.eq(now).fadeIn();
+            })
+
+            $("button[name=prev]").click(function(){
+                divs.eq(now).hide()
+                now = (now > 0) ? now - 1 : divs.length - 1;    
+                
+                if(now === 0) $('.prev').addClass('active')
+                if(now != 1) $('.next').removeClass('active')
+                divs.eq(now).fadeIn();
+            })
+
+        })
+    </script>
+
+</body>
+</html>

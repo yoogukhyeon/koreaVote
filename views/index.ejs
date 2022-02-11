@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vote</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    
+     <!-- jQuery 스크립트 -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .ageBox {
+            margin: 7px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>유국현</h1>
+        <div>투표</div>
+        <div class="vote-wrap">
+            <div class="vote1">
+                <h2>이재명</h2>
+                <div class="age">
+                    <h3 >연령대</h3>
+                    <div class="ageBox">
+                        <div>
+                            <input type="checkbox" name="age" id="age10" value="10" onclick="clickAge(this)">
+                            <label for="age10"><em></em>10대</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="age" id="age20" value="10" onclick="clickAge(this)">
+                            <label for="age20"><em></em>20대</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="age" id="age30" value="10" onclick="clickAge(this)">
+                            <label for="age30"><em></em>30대</label>
+                        </div>
+                    </div>     
+                  
+                </div>
+                <div>
+                    <ul>
+                        <% if(voteData[0].name === "이재명"){%>
+                            <li><%= voteData[0].percentage %></li>
+                            <li><%= voteData[0].people %></li>
+                        <%}%>
+                    </ul>
+                </div>
+                <p class="img"><img src="/img/이재명.jpg" alt=""></p>
+                <button type="button" class="btn" onclick="insertDate();">투표하기</button>
+            </div>
+
+            <div class="vote2">
+                <h2>윤석열</h2>
+                <div>
+                    <ul>
+                        <% if(voteData[1].name === "윤석열"){%>
+                            <li><%= voteData[1].percentage %></li>
+                            <li><%= voteData[1].people %></li>
+                        <%}%>
+                    </ul>
+                </div>
+                <p class="img"><img src="/img/윤석열.jpg" alt=""></p>
+                <button type="button" class="btn">투표하기</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function clickAge(value){
+            document.querySelectorAll(`input[type=checkbox]`)
+            .forEach(el => el.checked = false);
+
+            value.checked = true
+        }
+
+        function insertDate(){
+
+            const age = $('input[name="age"]:checked').val();
+            const name = "이재명"
+            const people = 1
+            const vote = 1
+            
+            if(!age){
+                alert("연령대를 선택해주세요.")
+                $('input[name="age"]').focus();
+                return false
+            }
+
+
+            $.ajax({
+                url : "/insertVote",
+                type : "POST",
+                dataType : 'json',
+                data : {age , people , vote , name},
+                success : function(data){
+                    if(data.msg === 'success'){
+                        window.location.reload()
+                    }
+                },
+                error : function(err){
+                    console.error("Error" , err)
+                }
+            })
+            
+        }
+    </script>
+</body>
+</html>

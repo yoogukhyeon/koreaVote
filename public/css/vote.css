@@ -1,0 +1,159 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.iframe {
+    width: 100%;
+    height: 100vh;
+}
+
+.container .video {
+    width: 1280px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.container .video > iframe {
+    width: 100%;
+    height: 100vh;
+}
+
+
+.mydivs {
+    position: absolute;
+    left: 50%;
+    top: 200%;
+    transform: translate(-50% , -50%);
+    width: 100%;
+    max-width: 800px;
+}
+.mydivs > div {
+    background-color: skyblue;
+    padding: 15px 15px; 
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.mydivs.active {
+    top: 50%;
+    transition: all 1.3s ease-in-out;
+}
+
+.divTitle {
+    padding: 10px 0;
+    font-style: italic;
+}
+
+.divSub {
+    padding: 5px 0;
+    font-size: 18px;
+}
+
+.ageBox{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+}
+.ageWarp {
+    border: 1px solid #eee;
+    padding: 15px;
+    margin: 10px 0;
+}
+.ageSub {
+    padding: 10px 0 ;
+    font-size: 18px;
+}
+.ageBox + .ageBox {
+    margin-top: 10px;
+}
+input[type="checkbox"]{
+    display: none;
+}
+
+input[type="checkbox"] + label em {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    background: url(../img/checkbox.png) 0 0 no-repeat;
+    vertical-align: middle;
+    background-color: #d5d5d5;
+    transition: all 0.7 ease-in-out;
+}
+
+input[type="checkbox"]:checked + label em {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background: url(../img/checked.png) 0 0 no-repeat;
+    vertical-align: middle;
+    transition: all 0.7 ease-in-out;
+}
+
+.ageTitle {
+    padding: 8px 0;
+    margin-bottom: 7px;
+}
+
+.arrow-right {
+    position: absolute;
+    right: 23%;
+    top: -50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #222;
+}
+
+.arrow-right.active {
+    top: 50%;
+    transition: all 1.3s ease-in-out;
+}
+.arrow-left {
+    position: absolute;
+    left: 23%;
+    top: -50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #222;
+}
+
+.arrow-left.active {
+    top: 50%;
+    transition: all 1.3s ease-in-out;
+}
+button {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.fas {
+    font-size: 30px;
+    color: skyblue;
+}
+
+
+.next.active {
+    opacity: 0;
+}
+.prev.active {
+    opacity: 0;
+}
