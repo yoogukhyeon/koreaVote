@@ -30,40 +30,71 @@
                         <label for="age10"><em></em>10대</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="age" id="age20" value="10" onclick="clickAge(this)">
+                        <input type="checkbox" name="age" id="age20" value="20" onclick="clickAge(this)">
                         <label for="age20"><em></em>20대</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="age" id="age30" value="10" onclick="clickAge(this)">
+                        <input type="checkbox" name="age" id="age30" value="30" onclick="clickAge(this)">
                         <label for="age30"><em></em>30대</label>
                     </div>
                 </div>  
                 <div class="ageBox">
                     <div>
-                        <input type="checkbox" name="age" id="age40" value="10" onclick="clickAge(this)">
+                        <input type="checkbox" name="age" id="age40" value="40" onclick="clickAge(this)">
                         <label for="age40"><em></em>40대</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="age" id="age50" value="10" onclick="clickAge(this)">
+                        <input type="checkbox" name="age" id="age50" value="50" onclick="clickAge(this)">
                         <label for="age50"><em></em>50대</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="age" id="age60" value="10" onclick="clickAge(this)">
+                        <input type="checkbox" name="age" id="age60" value="60" onclick="clickAge(this)">
                         <label for="age60"><em></em>60대</label>
                     </div>
                 </div> 
                 </div>
             </div>
-            <div>2</div>
+            <div>
+                <h1 class="divTitle" style="padding-left: 15px;";">20대 대선 투표</h1>
+                <div class="vote-wrap">
+                    <div class="vote1">
+                        <p><img src="/img/이재명.jpg" alt="이재명"></p>
+                        <dl class="count">
+                            <dt style="font-size: 20px;">현재 투표율</dt>
+                            <dd style="font-size: 18px; font-weight: bold;">50%</dd>
+                            <dt style="font-size: 20px; margin-top: 7px;">참여자 수</dt>
+                            <dd style="font-size: 18px; font-weight: bold;">3명</dd>
+                        </dl>
+
+                        <button type="button" class="btn" onclick="insertDate();">투표하기</button>
+                    </div>
+                    <div class="vote2">
+                        <p><img src="/img/윤석열.jpg" alt="윤석열"></p>
+
+                        <dl class="count">
+                            <dt style="font-size: 20px;">현재 투표율</dt>
+                            <dd style="font-size: 18px; font-weight: bold;">50%</dd>
+                            <dt style="font-size: 20px; margin-top: 7px;">참여자 수</dt>
+                            <dd style="font-size: 18px; font-weight: bold;">3명</dd>
+                        </dl>
+
+                        <button type="button" class="btn" onclick="insertDate2()">투표하기</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <span class="arrow-right">
+                <button name="next" class="next button"><i class="fas fa-angle-double-right"></i></button>
+            </span>
+    
+            <span class="arrow-left">
+                <button name="prev" class="prev button"><i class="fas fa-angle-double-left"></i></button>
+            </span>
         </div>
 
-        <div class="arrow-right">
-            <button name="next" class="next"><i class="fas fa-angle-double-right"></i></button>
-        </div>
-
-        <div class="arrow-left">
-            <button name="prev" class="prev"><i class="fas fa-angle-double-left"></i></button>
-        </div>
+  
     </div>
 
     <script>
@@ -77,11 +108,11 @@
         $(document).ready(function(){
             $('.prev').addClass('active')
 
-            setTimeout(function(){
+           setTimeout(function(){
                 $('.mydivs').addClass('active')
                 $('.arrow-right').addClass('active')
                 $('.arrow-left').addClass('active')
-            }, 4000)
+            }, 4000) 
             
             var divs = $('.mydivs > div')
             var now = 0
@@ -113,6 +144,55 @@
             })
 
         })
+
+      
+
+        function insertDate(){
+            const age = $('input[name="age"]:checked').val();
+            const name = "이재명";
+            const people = 1;
+            const vote = 1;
+
+           $.ajax({
+               url : "/insertVote",
+               type : "POST",
+               dataType : "json",
+               data : {age , people , name , vote},
+               success : function(data){
+                if(data.msg === 'success'){
+                        alert("투표를 완료했습니다.")
+                        return
+                    }
+               },
+               error : function(err){
+                    console.error("Error" , err)
+                }
+           })
+        }
+
+
+        function insertDate2(){
+            const age = $('input[name="age"]:checked').val();
+            const name = "윤석열";
+            const people = 1;
+            const vote = 1;
+
+            $.ajax({
+               url : "/insertVote",
+               type : "POST",
+               dataType : "json",
+               data : {age , people , name , vote},
+               success : function(data){
+                if(data.msg === 'success'){
+                        alert("투표를 완료했습니다.")
+                        return
+                    }
+               },
+               error : function(err){
+                    console.error("Error" , err)
+                }
+           })
+        }
     </script>
 
 </body>

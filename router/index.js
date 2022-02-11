@@ -4,6 +4,10 @@ const db = require('../config/db');
 const conn = db.init();
 db.connect(conn);
 
+router.get('/' , (req, res) => {
+    res.render('vote')
+})
+
 router.get("/vote" , async(req , res) => {
 
     try{
@@ -61,9 +65,7 @@ router.post('/insertVote' , async(req , res) => {
     }
 })
 
-router.get('/' , (req, res) => {
-    res.render('vote')
-})
+
 
 
 module.exports = router;

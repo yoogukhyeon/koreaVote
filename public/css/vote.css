@@ -113,7 +113,7 @@ input[type="checkbox"]:checked + label em {
 
 .arrow-right {
     position: absolute;
-    right: 23%;
+    right: -10%;
     top: -50%;
     transform: translateY(-50%);
     font-size: 20px;
@@ -126,7 +126,7 @@ input[type="checkbox"]:checked + label em {
 }
 .arrow-left {
     position: absolute;
-    left: 23%;
+    left: -10%;
     top: -50%;
     transform: translateY(-50%);
     font-size: 20px;
@@ -137,7 +137,7 @@ input[type="checkbox"]:checked + label em {
     top: 50%;
     transition: all 1.3s ease-in-out;
 }
-button {
+.button {
     display: inline-block;
     width: 50px;
     height: 50px;
@@ -156,4 +156,51 @@ button {
 }
 .prev.active {
     opacity: 0;
+}
+
+.vote-wrap {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.vote-wrap > div:hover > p {
+    transform: scale(1);
+    transition: all 0.8s ease-in-out;
+}
+.vote-wrap div > p {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    overflow: hidden;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: all 0.8s ease-in-out;
+}
+.vote-wrap div > p > img {
+    width: 100%;
+    height: auto;
+}
+
+.vote1 {
+    text-align: center;
+}
+
+.vote2 {
+    text-align: center;
+}
+.count {
+    padding: 15px 0;
+}
+
+.btn {
+    height: 50px;
+    width: 200px;
+    border: none;
+    outline: none;
+    background-color: #0a9ce5;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 10px 10px 10px;
 }
