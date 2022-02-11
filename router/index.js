@@ -4,7 +4,7 @@ const db = require('../config/db');
 const conn = db.init();
 db.connect(conn);
 
-router.get("/" , async(req , res) => {
+router.get("/vote" , async(req , res) => {
 
     try{
         let voteData
@@ -61,7 +61,7 @@ router.post('/insertVote' , async(req , res) => {
     }
 })
 
-router.get('/vote' , (req, res) => {
+router.get('/' , (req, res) => {
     res.render('vote')
 })
 
