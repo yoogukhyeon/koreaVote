@@ -240,8 +240,8 @@
                data : {age , people , name , vote},
                success : function(data){
                 if(data.msg === 'success'){
-                        alert("투표를 완료했습니다.")
-                        return
+                        alert("투표를 완료했습니다.\n참여해주셔서 감사합니다.")
+                        window.location.reload();
                     }
                },
                error : function(err){
@@ -264,8 +264,8 @@
                data : {age , people , name , vote},
                success : function(data){
                 if(data.msg === 'success'){
-                        alert("투표를 완료했습니다.")
-                        return
+                        alert("투표를 완료했습니다.\n참여해주셔서 감사합니다.")
+                        window.location.reload();
                     }
                },
                error : function(err){
