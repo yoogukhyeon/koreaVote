@@ -1,11 +1,35 @@
 const express = require('express');
+const moment = require('moment')
 const router = express.Router();
 const db = require('../config/db');
 const conn = db.init();
 db.connect(conn);
 
-router.get('/' , (req, res) => {
-    res.render('vote')
+router.get('/' , async(req, res) => {
+
+        const nowDate = moment().format('YYYY-MM-DD')
+    try{
+        let voteList = "";
+            voteList += "select concat(round(( sum(people)/100 * 100 ) , 0) , '%') as percentage, "
+            voteList += "       sum(people) as people, "
+            voteList += "       sum(vote) as vote, "
+            voteList += "       name as name "
+            voteList += "from exampleVote where name in ('이재명' , '윤석열')  group by name "  
+
+            const params = []
+            await conn.query(voteList , params , async (err , data) => {
+                    if(err) console.error("Error" , err)
+
+                    const lee = data[0];
+                    const yoon = data[1];
+                    
+                    res.render('vote' , {nowDate , lee , yoon})
+            })
+
+
+    }catch(err){
+        console.error("Error" , err)
+    }
 })
 
 router.get("/vote" , async(req , res) => {

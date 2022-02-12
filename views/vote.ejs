@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>20대선 선호도 투표</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="og:title" content="20대 대선 선호도 투표">
+    <meta name="description" content="20대 대선 선호도 투표 연령대 조사">
+    <meta name="_csrf_parameter" content="_csrf">
+    <meta name="_csrf_header" content="X-XSRF-TOKEN">
+    <meta name="_csrf" content="912767d5-0c4d-4fdb-aec6-11fd1cb1e9d4">
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="./img/favicon.ico">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./css/vote.css">
@@ -13,14 +24,18 @@
 <body>
     
     <div class="container">
-      <!--   <div class="iframe">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/UrVvkjkEoK0?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div> -->
+         <div class="iframe">
+            
+        </div> 
 
 
         <div class="mydivs">
             <div>
-                <h1 class="divTitle">20대 대선투표를 참여하시겠습니까?</h1>
+                <span class="date">
+                    <%= nowDate %> 
+                    <span id="clock"></span>
+                </span>
+                <h1 class="divTitle">20대 선호도 대선투표를 참여하시겠습니까?</h1>
                 <p class="divSub">당신의 한표가 대한민국을 바꿀수 있습니다.</p>
                 <div class="ageWarp">
                     <h2 class="ageSub">당신의 연령대를 선택해주세요.</h2>
@@ -55,30 +70,64 @@
                 </div>
             </div>
             <div>
+                <span class="date">
+                    <%= nowDate %> 
+                    <span id="secondClock"></span>
+                </span>
                 <h1 class="divTitle" style="padding-left: 15px;";">20대 대선 투표</h1>
                 <div class="vote-wrap">
                     <div class="vote1">
                         <p><img src="/img/이재명.jpg" alt="이재명"></p>
+                    <%if(!lee){%>
+                        <em class="no">투표 참여자가 없습니다.</em>
+                    <%}else{%>
+                        <em class="name"><%= lee.name %></em>
                         <dl class="count">
                             <dt style="font-size: 20px;">현재 투표율</dt>
-                            <dd style="font-size: 18px; font-weight: bold;">50%</dd>
+                            <dd style="font-size: 18px; font-weight: bold;"><%= lee.percentage %></dd>
                             <dt style="font-size: 20px; margin-top: 7px;">참여자 수</dt>
-                            <dd style="font-size: 18px; font-weight: bold;">3명</dd>
+                            <dd style="font-size: 18px; font-weight: bold;"><%= lee.people %></dd>
                         </dl>
-
-                        <button type="button" class="btn" onclick="insertDate();">투표하기</button>
+                    <%}%>
+                      
+                        <%if(!lee){%>
+                            <button type="button" class="btn" onclick="insertDate();">투표하기</button>
+                        <%}else{%>
+                            <% if(lee.people > 100){%>
+                                <button type="button" class="btn numberover" disabled="disabled">투표마감</button>
+                            <%}else{%>
+                                <button type="button" class="btn" onclick="insertDate();">투표하기</button>
+                            <%}%>
+                        <%}%>
+                  
+                    
                     </div>
+                    <span class="vs">VS</span>
                     <div class="vote2">
                         <p><img src="/img/윤석열.jpg" alt="윤석열"></p>
-
-                        <dl class="count">
-                            <dt style="font-size: 20px;">현재 투표율</dt>
-                            <dd style="font-size: 18px; font-weight: bold;">50%</dd>
-                            <dt style="font-size: 20px; margin-top: 7px;">참여자 수</dt>
-                            <dd style="font-size: 18px; font-weight: bold;">3명</dd>
-                        </dl>
-
-                        <button type="button" class="btn" onclick="insertDate2()">투표하기</button>
+                        <%if(!yoon){%>
+                            <em class="no">투표 참여자가 없습니다.</em>
+                        <%}else{%>
+                            <em class="name"><%= yoon.name %></em>
+                            <dl class="count">
+                                <dt style="font-size: 20px;">현재 투표율</dt>
+                                <dd style="font-size: 18px; font-weight: bold;"><%= yoon.percentage %></dd>
+                                <dt style="font-size: 20px; margin-top: 7px;">참여자 수</dt>
+                                <dd style="font-size: 18px; font-weight: bold;"><%= yoon.people %></dd>
+                            </dl>
+                        <%}%>
+                     
+                        <%if(!yoon){%>
+                            <button type="button" class="btn" onclick="insertDate2()">투표하기</button>
+                        <%}else{%>
+                            <% if(yoon.people > 100){%>
+                                <button type="button" class="btn numberover">투표마감</button disabled="disabled">
+                            <%}else{%>
+                                <button type="button" class="btn" onclick="insertDate2()">투표하기</button>
+                            <%}%>
+                        <%}%>
+                    
+                      
                     </div>
                 </div>
 
@@ -98,6 +147,41 @@
     </div>
 
     <script>
+        function getTime(){
+            var date = new Date();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            var time = false
+        
+            if(hour > 12){
+                time = true;
+                hour -= 12;
+            }
+
+            hour = hour < 10 ? "0" + hour : hour
+            minute = minute < 10 ? "0" + minute : minute
+            second = second < 10 ? "0" + second : second
+
+            var result = hour + ':' + minute + ':' + second;
+
+            if(time){
+                result += " pm ";
+            }else{
+                result += " am "
+            }
+            
+            document.getElementById('clock').textContent = result
+            document.getElementById('secondClock').textContent = result
+        }
+      
+        function init(){
+            getTime();
+            setInterval(getTime , 1000);
+        }
+
+        init()
+
         function clickAge(value){
             document.querySelectorAll(`input[type=checkbox]`)
             .forEach(el => el.checked = false);
@@ -112,7 +196,7 @@
                 $('.mydivs').addClass('active')
                 $('.arrow-right').addClass('active')
                 $('.arrow-left').addClass('active')
-            }, 4000) 
+            }, 5000) 
             
             var divs = $('.mydivs > div')
             var now = 0
