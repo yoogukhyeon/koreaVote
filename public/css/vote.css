@@ -12,9 +12,21 @@
     overflow: hidden;
 }
 
-.iframe {
+.bg-img {
+    background-image: url('../img/field-g3cce8be76_1920.jpg');
+    background-size: cover;
+    background-position: center center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+}
+
+.bg-img::before{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.2;
 }
 
 .container .video {
@@ -243,11 +255,11 @@ input[type="checkbox"]:checked + label em {
 
 @media screen and (max-width: 620px) {
     .divTitle {
-        font-size: 20px;
+        font-size: 16px;
         padding: 7px 0;
     }
     .divSub {
-        font-size: 16px;
+        font-size: 14px;
     }
     input[type="checkbox"] + label em {
         width: 20px;
